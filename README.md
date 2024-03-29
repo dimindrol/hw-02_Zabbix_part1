@@ -91,12 +91,12 @@ systemctl enable zabbix-agent
 
 Скриншот
 
-![Название скриншота 1](https://github.com/dimindrol/hw-02_Zabbix_part1/blob/ff3cdf483706a8b8915dd35b507730b14adea9f7/img/zabbix4.png)`
+![Название скриншота 1](https://github.com/dimindrol/hw-02_Zabbix_part1/blob/2c757c0574ed2ccff4ab640e8996df4d21caa95f/img/zabbix4.png)`
 
-![Название скриншота 1](https://github.com/dimindrol/hw-02_Zabbix_part1/blob/ff3cdf483706a8b8915dd35b507730b14adea9f7/img/zabbix5.png)`
+![Название скриншота 1](https://github.com/dimindrol/hw-02_Zabbix_part1/blob/2c757c0574ed2ccff4ab640e8996df4d21caa95f/img/zabbix5.png)`
 
-![Название скриншота 1](https://github.com/dimindrol/hw-02_Zabbix_part1/blob/ff3cdf483706a8b8915dd35b507730b14adea9f7/img/zabbix6.png)`
+![Название скриншота 1](https://github.com/dimindrol/hw-02_Zabbix_part1/blob/2c757c0574ed2ccff4ab640e8996df4d21caa95f/img/zabbix6.png)`
 
-![Название скриншота 1](https://github.com/dimindrol/hw-02_Zabbix_part1/blob/ff3cdf483706a8b8915dd35b507730b14adea9f7/img/zabbix7.png)`
+![Название скриншота 1](https://github.com/dimindrol/hw-02_Zabbix_part1/blob/2c757c0574ed2ccff4ab640e8996df4d21caa95f/img/zabbix7.png)`
 
 
