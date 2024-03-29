@@ -1,49 +1,70 @@
-# Домашнее задание к занятию "`Название занятия`" - `Фамилия и имя студента`
-
-
-### Инструкция по выполнению домашнего задания
-
-   1. Сделайте `fork` данного репозитория к себе в Github и переименуйте его по названию или номеру занятия, например, https://github.com/имя-вашего-репозитория/git-hw или  https://github.com/имя-вашего-репозитория/7-1-ansible-hw).
-   2. Выполните клонирование данного репозитория к себе на ПК с помощью команды `git clone`.
-   3. Выполните домашнее задание и заполните у себя локально этот файл README.md:
-      - впишите вверху название занятия и вашу фамилию и имя
-      - в каждом задании добавьте решение в требуемом виде (текст/код/скриншоты/ссылка)
-      - для корректного добавления скриншотов воспользуйтесь [инструкцией "Как вставить скриншот в шаблон с решением](https://github.com/netology-code/sys-pattern-homework/blob/main/screen-instruction.md)
-      - при оформлении используйте возможности языка разметки md (коротко об этом можно посмотреть в [инструкции  по MarkDown](https://github.com/netology-code/sys-pattern-homework/blob/main/md-instruction.md))
-   4. После завершения работы над домашним заданием сделайте коммит (`git commit -m "comment"`) и отправьте его на Github (`git push origin`);
-   5. Для проверки домашнего задания преподавателем в личном кабинете прикрепите и отправьте ссылку на решение в виде md-файла в вашем Github.
-   6. Любые вопросы по выполнению заданий спрашивайте в чате учебной группы и/или в разделе “Вопросы по заданию” в личном кабинете.
-   
-Желаем успехов в выполнении домашнего задания!
-   
-### Дополнительные материалы, которые могут быть полезны для выполнения задания
-
-1. [Руководство по оформлению Markdown файлов](https://gist.github.com/Jekins/2bf2d0638163f1294637#Code)
-
----
+# Домашнее задание к занятию "`Система мониторинга Zabbix`" - `Пергунов Д.В`
 
 ### Задание 1
 
-`Приведите ответ в свободной форме........`
-
-1. `Заполните здесь этапы выполнения, если требуется ....`
-2. `Заполните здесь этапы выполнения, если требуется ....`
-3. `Заполните здесь этапы выполнения, если требуется ....`
-4. `Заполните здесь этапы выполнения, если требуется ....`
-5. `Заполните здесь этапы выполнения, если требуется ....`
-6. 
+1. Процесс установки описан в коде и дополнительно прикреплены скриншоты
 
 ```
-Поле для вставки кода...
-....
-....
-....
-....
+# Добавление репозитория postgres
+sudo sh -c 'echo "deb https://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+
+# Импорт ключа репозитория
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+
+# Обновление пакетов
+sudo apt-get update
+
+#Настройка локализации
+sudo locale-gen "en_US.UTF-8"
+sudo dpkg-reconfigure locales
+
+#Установка Postgres и Apache, добавление в автозапуск
+apt -y install postgresql-client-13 postgresql-13
+pg_createcluster 13 main --start
+systemctl enable --now postgresql
+
+sudo apt install apache2
+systemctl enable --now apache2
+
+
+nano /etc/postgresql/13/main/postgresql.conf
+#Разкоментировал строку: listen_addresses = 'localhost'
+
+nano /etc/postgresql/13/main/pg_hba.conf
+#Добавил строку
+host    zabbix          zabbix          127.0.0.1/32            trust
+systemctl restart postgresql
+
+# Установили Zabbix сервер, веб-интерфейс
+wget https://repo.zabbix.com/zabbix/6.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.0-4+ubuntu22.04_all.deb
+dpkg -i zabbix-release_6.0-4+ubuntu22.04_all.deb
+apt update
+apt install zabbix-server-pgsql zabbix-frontend-php php8.1-pgsql zabbix-apache-conf zabbix-sql-scripts
+
+#Создали БД
+sudo -u postgres createuser --pwprompt zabbix
+sudo -u postgres createdb -O zabbix zabbix
+
+#На хосте Zabbix сервера импортировали начальную схему и данные
+zcat /usr/share/zabbix-sql-scripts/postgresql/server.sql.gz | sudo -u zabbix psql zabbix
+
+#Настроили базу данных для Zabbix сервера
+nano /etc/zabbix/zabbix_server.conf
+DBPassword=zabbix
+
+#Перезагрузили и настроили автозапуск
+systemctl restart zabbix-server apache2
+systemctl enable zabbix-server apache2
+
 ```
 
-`При необходимости прикрепитe сюда скриншоты
-![Название скриншота 1](ссылка на скриншот 1)`
+Скриншоты 
 
+![Название скриншота 1](https://github.com/dimindrol/hw-02_Zabbix_part1/blob/ff3cdf483706a8b8915dd35b507730b14adea9f7/img/zabbix1.png)`
+
+![Название скриншота 1](https://github.com/dimindrol/hw-02_Zabbix_part1/blob/ff3cdf483706a8b8915dd35b507730b14adea9f7/img/zabbix2.png)`
+
+![Название скриншота 1](https://github.com/dimindrol/hw-02_Zabbix_part1/blob/ff3cdf483706a8b8915dd35b507730b14adea9f7/img/zabbix3.png)`
 
 ---
 
